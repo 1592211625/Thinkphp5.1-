@@ -1,0 +1,131 @@
+﻿<html>
+ <head> 
+  <meta charset="UTF-8" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+  <link href="/static/index/css/index.css-ccfdf3f4.css" rel="stylesheet" type="text/css" /> 
+  <link rel="stylesheet" type="text/css" href="/static/index/css/bottom.css" media="all" /> 
+  <link href="/static/index/css/index.css-a267bc7f.css" rel="stylesheet" type="text/css" /> 
+  <link rel="stylesheet" href="/static/index/css/index-2.css" />
+
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="/static/index/lib/webuploader/webuploader.css" />
+  <script type="text/javascript" src="/static/index/lib/webuploader/webuploader.js"></script>
+
+ </head>
+ <body class="media_screen_960 media_screen_1200"> 
+  <!-- 顶部导航开始-->
+  {include file='public/header' /}
+<!-- 顶部导航结束-->
+
+  <!-- 中间logo以及搜索区域开始 --> 
+  <div class="header_mid clearfix"> 
+   <div class="wrap clearfix"> 
+    <a rel="nofollow"  class="logo" title="蘑菇街首页" style="background-image: none;">
+	<img src="/static/index/images/logo.gif" alt="蘑菇街，我的买手街" />
+	</a> 
+    <div class="normal-search-content"> 
+     <div class="top_nav_search" id="nav_search_form"> 
+      <!--搜索框 --> 
+      <div class="search_inner_box clearfix"> 
+       <div class="selectbox" data-v="1"> 
+        <span class="selected">搜商品</span> 
+       </div> 
+       <form action="/search/" method="get" id="top_nav_form"> 
+        <input data-tel="search_book" name="q" class="ts_txt fl" data-def="牛仔裤" value="" autocomplete="off" def-v="牛仔裤"  type="text" /> 
+        <input value="搜  索" class="ts_btn" type="submit" /> 
+        <input name="t" value="bao" id="select_type" type="hidden" /> 
+       </form> 
+       <div class="top_search_hint is-not-ie8-hack"></div> 
+      </div> 
+     </div>
+    </div> 
+   </div> 
+  </div> 
+ <!-- 中间logo以及搜索区域结束 -->  
+ 
+  <div id="body_wrap"> 
+   <div id="body_content_wrap"> 
+    <div id="body" class="fm970"> 
+     <div class="per_wrap clearfix" id="per_wrap"> 
+      <div id="navListWrap">
+       <div class="mu_nav_wrap"> 
+	   
+	   <!---左侧导航开始-->
+        {include file='public/leftnav' /}
+
+       </div>
+      </div> 
+	  	   <!---左侧导航结束-->
+	  
+	  
+      <div class="per_content_wrap" id="per_content_wrap">
+       <div class="main_content"> 
+        <div class="content_header">
+         设置头像
+        </div> 
+        <div class="content_form"> 
+         <div class="avatar_form"> 
+          <form class="ui-form">
+           <img id="nickPic" class="ui-pic" src="{$data['userimg']}" alt="" />
+           <div class="ui-tip" style="line-height: 6px;">
+            <span class="ui-change" id="filePicker">更换头像</span>
+            <div class="ui-bg"></div>
+           </div>
+           <input type="hidden" id="userid" value="{$Think.session.id}"/>
+<!--           <input id="uploadAvartar" class="ui-file" name="image" type="file" /> -->
+          </form> 
+         </div> 
+         <span id="pic-tip" class="ui-pic-tip"></span> 
+         <div class="subbox clearfix"> 
+          <a href="javascript:;" id="btn_submit" class="btn_check">完成</a>
+         </div> 
+        </div>
+       </div>
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+ <script>
+  var uploader = WebUploader.create({
+
+   // 选完文件后，是否自动上传。
+   auto: true,
+
+   // swf文件路径
+   swf: '/static/index/lib/webuploader/Uploader.swf',
+
+   // 文件接收服务端。
+   server: '/web/userpic/changePic',
+
+   // 选择文件的按钮。可选。
+   // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+   pick: '#filePicker',
+
+   // 只允许选择图片文件。
+   accept: {
+    title: 'Images',
+    extensions: 'gif,jpg,jpeg,bmp,png',
+    mimeTypes: 'image/*'
+   }
+  });
+  uploader.on( 'uploadSuccess', function(file,imgres) {
+   $("#nickPic").attr('src',imgres.msg)
+   $("#btn_submit").click(function () {
+    var userid = $("#userid").val();
+    $.post('/web/userpic/picUpload',{userimg:imgres.msg,id:userid},function (res) {
+     if(res.status=='success'){
+        alert(res.msg);
+        location.reload();
+     }else {
+      alert(res.msg);
+     }
+    })
+   })
+  });
+
+ </script>
+
+ 
+ </body>
+</html>

@@ -1,0 +1,294 @@
+{extend name="public/base"/}
+{block name="content"}
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label" style="width: 90px">
+                            <span class="x-red">*</span>商品名</label>
+                        <div class="layui-input-inline" style="width: 241px">
+                            <input type="text" placeholder="请输入商品名" id="goods_name" name="goods_name"  lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label" style="width: 90px">
+                            <span class="x-red">*</span>商品一级分类</label>
+                        <div class="layui-input-inline" style="width: 241px">
+                            <select id="" class="valid" name="" lay-filter="sel">
+                                <option value="-1">--请选择--</option>
+                                {foreach $cate as $k=>$v}
+                                <option value="{$v['id']}">{$v['catename']}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="phone" class="layui-form-label" style="width: 90px">
+                            <span class="x-red">*</span>商品二级分类</label>
+                        <div class="layui-input-inline" style="width: 241px">
+                            <select id="cate_id" class="valid" name="cate_id"></select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label" style="width: 90px">
+                            <span class="x-red">*</span>商品图片</label>
+                        <div class="layui-input-inline" style="width: 241px">
+                            <a type="button" class="layui-btn" id="test1">
+                                <i class="layui-icon">&#xe67c;</i>上传图片
+                            </a>
+                            <a type="button" class="layui-btn" id="upload1">
+                                <i class="layui-icon">&#xe67c;</i>开始上传
+                            </a>
+                        </div>
+                        <div class="thumbnail1" style="margin-left: 100px;"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label" style="width: 90px">
+                            <span class="x-red">*</span>商品原价</label>
+                        <div class="layui-input-inline" style="width: 241px">
+                            <input type="text" placeholder="请输入价格" id="original_price" name="original_price"  lay-verify="required" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label" style="width: 90px">
+                            <span class="x-red">*</span>商品颜色</label>
+                        <div class="layui-input-inline" style="width: 241px">
+                            <a type="button" class="layui-btn" id="test2">
+                                <i class="layui-icon">&#xe67c;</i>上传图片
+                            </a>
+                            <a type="button" class="layui-btn" id="upload2">
+                                <i class="layui-icon">&#xe67c;</i>开始上传
+                            </a>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="thumbnail2" style="margin-left: 100px;"></div>
+                    </div>
+                    <div class="layui-form-item" id="goods_hot" >
+                        <label class="layui-form-label" style="width: 90px"><span class="x-red">*</span>是否热销</label>
+                        <div class="layui-input-block" style="width: 241px">
+                            <input type="radio" name="goods_hot" value="0" title="不热销" checked>
+                            <input type="radio" name="goods_hot" value="1" title="热销">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" id="goods_on" >
+                        <label class="layui-form-label" style="width: 90px"><span class="x-red">*</span>是否上架</label>
+                        <div class="layui-input-block" style="width: 241px">
+                            <input type="radio" name="goods_on" value="0" title="不上架" checked>
+                            <input type="radio" name="goods_on" value="1" title="上架">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="phone" class="layui-form-label" style="width: 90px">
+                            <span class="x-red">*</span>商品类型</label>
+                        <div class="layui-input-inline" style="width: 241px">
+                            <input type="text" id="goods_type" name="goods_type" placeholder="参考格式：M|L|XL"   lay-verify="require" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="phone" class="layui-form-label" style="width: 90px">
+                            <span class="x-red">*</span>商品描述</label>
+                        <div class="layui-input-inline" style="width: 241px" >
+                            <button type="button" class="layui-btn test" id="test3">
+                                <i class="layui-icon">&#xe67c;</i>选择图片
+                            </button>
+                            <button type="button" class="layui-btn testListAction" id="upload3">
+                                <i class="layui-icon">&#xe67c;</i>开始上传
+                            </button>
+                        </div>
+                        <div class="thumbnail3" style="display:flex;flex-direction: row"></div>
+                    </div>
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label" style="width: 90px"></label>
+            <button class="layui-btn" lay-filter="add" lay-submit="">增加</button></div>
+        </form>
+        </div>
+        </div>
+        <script>
+            layui.use(['form', 'layer','upload'],
+            function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                layer = layui.layer;
+                upload = layui.upload;
+                //分类下拉框
+                form.on('select(sel)',function (data) {
+                    var pid = data.value;
+                    $.post('/admin/cate',{pid:pid},function (res) {
+                        var option="";
+                        res.forEach(function(item){
+                            option+='<option value="'+item.id+'">'+item.catename+'</option>'
+                        });
+                        $('#cate_id').html(option);
+                        form.render('select');
+                    })
+                })
+                //商品图片
+                upload.render({
+                     elem: '#test1'
+                    ,url: '/admin/imgupload1'
+                    ,auto: false //选择文件后不自动上传
+                    ,multiple:false
+                    ,bindAction: '#upload1' //指向一个按钮触发上传
+                    ,choose: function(obj){
+                        //将每次选择的文件追加到文件队列
+                        var files = obj.pushFile();
+
+                        //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+
+                        obj.preview(function(index, file, result){
+                            // console.log(index); //得到文件索引
+                            // console.log(file); //得到文件对象
+                            // console.log(result); //得到文件base64编码，比如图片
+                            $('.thumbnail1').append('<div id="container_'+index+'" style="margin:10px;position: relative;display: inline-block">'+
+                                '<img style="width: 100px;height: 100px" src="'+result+'"/>' +
+                                '<i id="del_'+index+'" style="position: absolute;right: 0" class="layui-icon layui-icon-close"></i>'+
+                                '<span style="background: rgba(0,0,0,.5);color: #fff;width: 100%;text-align: center;position: absolute;left: 0;bottom: 0;">'+file.name+'</span>'+'</div>');
+
+                            $('#del_'+index).bind('click',function(){
+                                //删除文件队列中指定的文件
+                                delete files[index];
+                                //删除页面上的图片
+                                $('#container_'+index).remove();
+                            });
+                            //obj.resetFile(index, file, '123.jpg'); //重命名文件名，layui 2.3.0 开始新增
+
+                            //这里还可以做一些 append 文件列表 DOM 的操作
+
+                            //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
+                            //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+                        });
+                    },
+                    before:function () {
+                        layer.load();
+                    },
+                    done:function (res,index,upload) {
+                        console.log(res);
+                        $('.thumbnail1').html('<img style="width: 300px;position: absolute;top: 0;left: 450px" src="'+res.msg+'" /><input type="hidden" name="goods_img" value="'+res.msg+'"/>');
+                        layer.closeAll('loading'); //关闭loading
+                        layer.msg('图片上传成功');
+                    }
+                });
+                //商品颜色
+                $("#upload2").click(function () {
+                    $('.thumbnail2').html('')
+                })
+                upload.render({
+                    elem: '#test2'
+                    ,url: '/admin/imgupload2'
+                    ,auto: false //选择文件后不自动上传
+                    ,multiple:true
+                    ,bindAction: '#upload2' //指向一个按钮触发上传
+                    ,choose: function(obj){
+                        //将每次选择的文件追加到文件队列
+                        var files = obj.pushFile();
+
+                        //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+
+                        obj.preview(function(index, file, result){
+                            // console.log(index); //得到文件索引
+                            // console.log(file); //得到文件对象
+                            // console.log(result); //得到文件base64编码，比如图片
+                            $('.thumbnail2').append('<div id="container_'+index+'" style="margin:10px;margin-left: 22px;position: relative;display: inline-block">'+
+                                '<img style="width: 100px;height: 100px" src="'+result+'"/>' +
+                                '<i id="del_'+index+'" style="position: absolute;right: 0" class="layui-icon layui-icon-close"></i>'+
+                                '<span style="background: rgba(0,0,0,.5);color: #fff;width: 100%;text-align: center;position: absolute;left: 0;bottom: 0;">'+file.name+'</span>'+'</div>');
+
+                            $('#del_'+index).bind('click',function(){
+                                //删除文件队列中指定的文件
+                                delete files[index];
+                                //删除页面上的图片
+                                $('#container_'+index).remove();
+                            });
+                            //obj.resetFile(index, file, '123.jpg'); //重命名文件名，layui 2.3.0 开始新增
+
+                            //这里还可以做一些 append 文件列表 DOM 的操作
+
+                            //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
+                            //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+                        });
+                    },
+                    before:function () {
+                        layer.load();
+                    },
+
+                    done:function (res,index,upload) {
+                        console.log(res);
+                        $('.thumbnail2').append('' +
+                            '<div style="display: flex;margin: 10px 0 10px 20px;"><img style="width: 50px;height: 50px;" src="'+res.msg+'" />' +
+                            '<input type="hidden" name="goods_color[]" value="'+res.msg+'"/>' +
+                            '<input type="text" style="width: 50%;height: 50px;" placeholder="请输入商品颜色" id="goods_color_text" name="goods_color_text[]" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>');
+                        layer.closeAll('loading'); //关闭loading
+                        layer.msg('图片上传成功');
+                    }
+                });
+                //商品描述
+                upload.render({
+                    elem: '#test3'
+                    ,url: '/admin/imgupload3'
+                    ,auto: false //选择文件后不自动上传
+                    ,multiple:false
+                    ,bindAction: '#upload3' //指向一个按钮触发上传
+                    ,choose: function(obj){
+                        //将每次选择的文件追加到文件队列
+                        var files = obj.pushFile();
+
+                        //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+
+                        obj.preview(function(index, file, result){
+                            // console.log(index); //得到文件索引
+                            // console.log(file); //得到文件对象
+                            // console.log(result); //得到文件base64编码，比如图片
+                            $('.thumbnail3').append('<div id="container_'+index+'" style="margin:10px;position: relative;display: inline-block;">'+
+                                '<img style="width: 100px;height: 100px" src="'+result+'"/>' +
+                                '<i id="del_'+index+'" style="position: absolute;right: 0" class="layui-icon layui-icon-close"></i>'+
+                                '<span style="background: rgba(0,0,0,.5);color: #fff;width: 100%;text-align: center;position: absolute;left: 0;bottom: 0;">'+file.name+'</span>'+'</div>');
+
+                            $('#del_'+index).bind('click',function(){
+                                //删除文件队列中指定的文件
+                                delete files[index];
+                                //删除页面上的图片
+                                $('#container_'+index).remove();
+                            });
+                            //obj.resetFile(index, file, '123.jpg'); //重命名文件名，layui 2.3.0 开始新增
+
+                            //这里还可以做一些 append 文件列表 DOM 的操作
+
+                            //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
+                            //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+                        });
+                    },
+                    before:function () {
+                        layer.load();
+                    },
+                    done:function (res,index,upload) {
+                        console.log(res);
+                        $('.thumbnail3').html('<img style="width: 400px;position: absolute;top: 500px;left: 450px" src="'+res.msg+'" /><input type="hidden" name="goods_desc" value="'+res.msg+'"/>');
+                        layer.closeAll('loading'); //关闭loading
+                        layer.msg('图片上传成功');
+                    }
+                });
+                //监听提交
+                form.on('submit(add)',
+                function(data) {
+                    $.post('/admin/goods',data.field,function(res){
+                        console.log(res);
+                        if(res.status=='success'){
+                                layer.alert(res.msg, {icon: 6})
+                                location.href="/admin/sku/"+res.id;
+                        }else {
+                            layer.alert(res.msg,{icon: 6},)
+                        }
+                    })
+                    //发异步，把数据提交给php
+
+                    return false;
+                });
+
+            });</script>
+        <script>var _hmt = _hmt || []; (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();</script>
+{/block}

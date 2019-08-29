@@ -1,0 +1,129 @@
+{extend name="public/base"/}
+{block name="content"}
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form">
+                    <div class="sku">
+                        <div class="containers">
+                            <span>SKU</span>
+                            <i id="close" class="layui-icon layui-icon-close"></i>
+                            <input type="hidden" name="sku_id[]" value="{$sku_id}"/>
+                            <div class="layui-form-item">
+                                <label for="username" class="layui-form-label">
+                                    <span class="x-red">*</span>选择颜色
+                                </label>
+                                <div class="layui-input-inline">
+                                    <select id="sku_color" name="sku_color[]" class="valid">
+                                        <option value="shentong">--请选择--</option>
+                                        {foreach $sku_color as $k=>$v}
+                                        <option value="{$v}">{$v}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="username" class="layui-form-label">
+                                    <span class="x-red">*</span>选择尺寸
+                                </label>
+                                <div class="layui-input-inline">
+                                    <select id="sku_type" name="sku_type[]" class="valid">
+                                        <option value="shentong">--请选择--</option>
+                                        {foreach $sku_type as $k=>$v}
+                                        <option value="{$v}">{$v}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="username" class="layui-form-label">
+                                    <span class="x-red">*</span>实际价格</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="sku_price" name="sku_price[]" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="username" class="layui-form-label">
+                                    <span class="x-red">*</span>实际库存</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="sku_num" name="sku_num[]" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label"></label>
+            <button class="layui-btn" lay-filter="add" lay-submit="">增加</button>
+            <button class="layui-btn" lay-filter="addsku" lay-submit="" id="addsku">再次添加sku</button>
+        </div>
+        </form>
+        </div>
+        </div>
+        <script>
+            $(".layui-row").on('click','.layui-icon',function () {
+                var len = $('.layui-icon').length;
+                if(len==1){
+                    layer.msg('至少保留一个');
+                    return false;
+                }
+                $(this).parents('.containers').remove();
+            })
+
+                // var sku =$(".sku").html()
+                // $(".sku").after(sku);
+                // form.render('select');
+            layui.use(['form', 'layer'],
+            function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                layer = layui.layer;
+                $(".layui-row").on("click",'#addsku',function () {
+                    var newsku =$(".sku").html()
+                    $(".sku").after(newsku);
+                    form.render('select');
+                })
+                //自定义验证规则
+                form.verify({
+                    nikename: function(value) {
+                        if (value.length < 5) {
+                            return '昵称至少得5个字符啊';
+                        }
+                    },
+                    pass: [/(.+){6,12}$/, '密码必须6到12位'],
+                    repass: function(value) {
+                        if ($('#L_pass').val() != $('#L_repass').val()) {
+                            return '两次密码不一致';
+                        }
+                    }
+                });
+                form.on('submit(addsku)',function () {
+
+                })
+                //监听提交
+                form.on('submit(add)',
+                function(data) {
+                    console.log(data);
+                    //发异步，把数据提交给php
+                    $.post('/admin/addsku',data.field,function (res) {
+                        console.log(res)
+                        if(res.status=='success'){
+                            layer.alert(res.msg,{icon: 6})
+                                var index = parent.layer.getFrameIndex(window.name);
+                                //关闭当前frame
+                                parent.layer.close(index);
+                            window.parent.location.reload()
+                        }else {
+                            layer.alert(res.msg,{icon: 5})
+                        }
+                    })
+
+                    return false;
+                });
+
+            });</script>
+        <script>var _hmt = _hmt || []; (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();</script>
+        {/block}

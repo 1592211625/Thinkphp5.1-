@@ -1,0 +1,473 @@
+﻿<html>
+ <head> 
+  <meta charset="UTF-8" /> 
+  <meta http-equiv="Cache-Control" content="no-transform" /> 
+  <meta name="renderer" content="webkit" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+  <title>{$setting['web_title']}</title>
+  <meta name="description" content="{$setting['web_keywords']}" />
+  <meta name="keywords" content="{$setting['web_description']}" />
+  <link rel="stylesheet" type="text/css" href="/static/index/css/cubeactcomponent.css" media="all" />
+  <link rel="stylesheet" href="/static/index/css/osvol.css" />
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="/static/index/lib/swiper/css/swiper.min.css">
+
+  <style>
+   /*banner*/
+   .swiper-container {
+    width: 100%;
+    height: 100%;
+   }
+   .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+   }
+   .swiper-pagination-bullet {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    color:#000;
+    opacity: 1;
+    background: rgba(0,0,0,0.2);
+   }
+   .swiper-pagination-bullet-active {
+    color:#fff;
+    background: #007aff;
+   }
+
+   /*分类*/
+
+   .left {
+    float: left;
+   }
+
+   .right {
+    float: right;
+   }
+   /**左侧菜单**/
+
+   .sec-mainL {
+    width: 256px;
+    box-shadow: 2px 0 4px #D5D5D5;
+    position: relative;
+    z-index: 5;
+   }
+
+   .mainL-hd-box {
+    padding-bottom: 5px;
+    background: url(img/index.png) no-repeat 0 39px;
+   }
+
+   .mainL-hd {
+    height: 39px;
+    line-height: 39px;
+    text-align: center;
+    cursor: pointer;
+    background: #D03800;
+   }
+
+   .mainL-hd a {
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+   }
+
+   .mainL-hd a:before {
+    content: "";
+    display: inline-block;
+    /*width:px;*/
+    /*height:px;*/
+    background: url(img/iconsB.png) no-repeat -73px 0;
+   }
+   /**菜单列表**/
+
+   .sec-mainNav>li {
+    padding: 10px 19px 36px;
+    position: relative;
+    background: #F0F0F0;
+    cursor: pointer;
+    z-index: 4;
+   }
+
+   .sec-mainNav>li:nth-child(2n) {
+    background: #FFF;
+   }
+
+   .sec-mainNav>li h3 {
+    font-size: 12px;
+   }
+
+   .sec-mainNav>li.hover {
+    background: #545651;
+   }
+
+   .sec-mainNav>li.hover h3,
+   .sec-mainNav>li.hover .menu-tab a {
+    color: #fff;
+   }
+
+   .sec-mainNav li .menu-tab {
+    margin-top: 5px;
+   }
+
+   .sec-mainNav li .menu-tab a {
+    float: left;
+    margin-right: 6px;
+    color: #888;
+   }
+
+   .sec-mainNav li .menu-more {
+    position: absolute;
+    display: block;
+    width: 6px;
+    height: 9px;
+    right: 19px;
+    top: 28px;
+    line-height: 999;
+    overflow: hidden;
+    background: url(img/index.png) no-repeat 0 -6px;
+   }
+   /**二级菜单**/
+
+   .menu-panel {
+    position: absolute;
+    width: 446px;
+    padding: 18px 34px;
+    /*display:;*/
+    top: 0;
+    left: 256px;
+    z-index: 5;
+    box-shadow: inset 2px 0 5px 0 #D5D5D5, 2px 0 3px #E8E8E8;
+    background: #fff;
+    display: none;
+   }
+
+   .menu-panel h4 {
+    font-family: "Microsoft YaHei", "微软雅黑", "黑体";
+    font-size: 14px;
+    color: #e64e3e;
+    margin-bottom: 9px;
+   }
+
+   .menu-panel-hd {
+    line-height: 1.5;
+   }
+
+   .sub-group a {
+    color: #555;
+    display: inline-block;
+    margin-right: 16px;
+   }
+
+   .sub-group a:hover {
+    color: #E64E3E;
+    text-decoration: underline;
+   }
+
+   .menu-panel-bd li {
+    float: left;
+    width: 88px;
+    height: 56px;
+    border: 1px solid #EDEEEF;
+    margin: 0 0 -1px -1px;
+    background-color: #FFF;
+   }
+
+   .menu-panel-bd li a {
+    display: block;
+    text-align: center;
+   }
+
+   .menu-panel-bd li a img {
+    width: 80px;
+    height: 27px;
+    margin-top: 14px;
+   }
+
+   .menu-panel-btn {
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    margin-top: 15px;
+    padding: 0 10px;
+    color: #FFF;
+    background-color: #E64E3E;
+   }
+
+   .menu-panel-btn em {
+    width: 0;
+    height: 0;
+    margin-left: 6px;
+    overflow: hidden;
+    font-size: 0;
+    display: inline-block;
+    border-width: 4px;
+    border-color: transparent transparent transparent #FFF;
+    border-style: dashed dashed dashed solid;
+   }
+   /**中间部分**/
+
+   .sec-mainM {
+    width: 666px;
+    position: relative;
+    z-index: 3;
+   }
+  </style>
+ </head>
+ 
+ 
+ <body class="media_screen_1200"> 
+ 
+<!-- 顶部导航开始-->
+{include file='public/header' /}
+<!-- 顶部导航结束-->
+
+
+<!-- 中间logo以及搜索区域开始 --> 
+  <div class="header_mid clearfix"> 
+   <div class="wrap clearfix"> 
+    <a rel="nofollow"  class="logo" title="蘑菇街首页" style="background-image: none;">
+	<img src="{$logo['imgsrc']}" alt="蘑菇街，我的买手街" />
+	</a> 
+    <div class="normal-search-content"> 
+     <div class="top_nav_search" id="nav_search_form"> 
+      <!--搜索框 --> 
+      <div class="search_inner_box clearfix"> 
+       <div class="selectbox" data-v="1"> 
+        <span class="selected">搜商品</span> 
+       </div> 
+       <form action="/search/" method="get" id="top_nav_form"> 
+        <input data-tel="search_book" name="q" class="ts_txt fl" data-def="牛仔裤" value="" autocomplete="off" def-v="牛仔裤"  type="text" /> 
+        <input value="搜  索" class="ts_btn" type="submit" /> 
+        <input name="t" value="bao" id="select_type" type="hidden" /> 
+       </form> 
+       <div class="top_search_hint is-not-ie8-hack"></div> 
+      </div> 
+     </div>
+    </div> 
+   </div> 
+  </div> 
+ <!-- 中间logo以及搜索区域结束 -->  
+  
+  
+  <div id="body_wrap"> 
+   <div class="page_activity  ">
+
+
+    <div class="module_row module_row_1047915 MOD_ID_248606 has-log-mod" data-mid="1047915" data-versionid="2817022" id="m1047915" data-editable="0" data-acm="3.mf.1_0_0.0.0.0.mf_15261_1047915">
+     <div class="mod_row MCUBE_MOD_ID_248606 J_mod_row_show" style="width: 100%; margin-bottom: 15px;">
+
+
+     
+      <div> 
+       <div class="pc_banner_wrapper clearfix"> 
+        <!-- 商品导航开始 --> 
+        <div class="pc_indexPage_nav_menu fl cube-acm-node has-log-mod" data-source-type="mce" data-source-key="110119">
+
+         <div class="sec-mainL left">
+          <!--菜单列表-->
+          <ul class="sec-mainNav">
+           {foreach $data as $k=>$v}
+           <li>
+            <h3>{$v['catename']}</h3>
+            <div class="menu-tab">
+             {foreach $v['child'] as $kk=>$vv}
+             <a href="">{$vv['catename']}</a>
+             {/foreach}
+             <div class="fix"></div>
+            </div>
+            <!--二级菜单-->
+            <div class="menu-panel">
+             <div class="menu-panel-hd">
+              <h4>热门分类</h4>
+              <div class="sub-group">
+               {foreach $v['child'] as $kk=>$vv}
+               <a href="/web/goodlist/{$vv['id']}">{$vv['catename']}</a>
+               {/foreach}
+              </div>
+             </div>
+            </div>
+           </li>
+           {/foreach}
+          </ul>
+         </div>
+
+        </div> 
+		<!-- 商品导航结束 -->
+
+<!--        /static/index/images/ad19.jpg-->
+        <!-- 导航右边轮播开始 -->
+        <div class="item_slider fl lazyData" style="position: relative">
+         <div class="swiper-container">
+          <div class="swiper-wrapper">
+           {foreach $banner as $k=>$v}
+           <div class="swiper-slide">
+            <a href="{$v['imgurl']}"><img width="100%" src="{$v['imgsrc']}"></a>
+           </div>
+           {/foreach}
+          </div>
+          <!-- Add Pagination -->
+          <div class="swiper-pagination" style="bottom: 30px"></div>
+         </div>
+        </div>
+
+
+
+
+
+		 <!-- 导航右边轮播结束 -->
+        </div>
+       </div> 
+      </div>  
+     </div> 
+    </div>
+    
+ <!-- 导航下面的广告图片开始-->
+    <div class="module_row module_row_1047916 MOD_ID_914628 has-log-mod" >
+     <div class="mod_row MCUBE_MOD_ID_914628 J_mod_row_show" style="margin-bottom:48px"> 
+      <div class="bottom sel1 lazyData" >
+       <a rel="nofollow" class="bot-img img2 J_dynamic_imagebox cube-acm-node J_loading_success has-log-mod"  target="_blank" >
+	      <img class="J_dynamic_img fill_img" src="/static/index/images/ad1.jpg" alt="" />
+	   </a>
+       <a rel="nofollow" class="bot-img img2 J_dynamic_imagebox cube-acm-node J_loading_success has-log-mod"  target="_blank"  >
+	      <img class="J_dynamic_img fill_img" src="/static/index/images/ad2.jpg" alt="" />
+	   </a>
+       <a rel="nofollow" class="bot-img img2 J_dynamic_imagebox cube-acm-node J_loading_success has-log-mod"  target="_blank" >
+	      <img class="J_dynamic_img fill_img" src="/static/index/images/ad3.jpg" alt="" />
+	   </a>
+       <a rel="nofollow" class="bot-img img2 J_dynamic_imagebox cube-acm-node J_loading_success has-log-mod"  target="_blank" >
+	      <img class="J_dynamic_img fill_img" src="/static/index/images/ad4.jpg" alt="" />
+	   </a>
+      </div> 
+     </div>
+    </div>
+<!-- 导航下面的广告图片结束-->	
+	
+   <!-- 中间的商品展示开始--->
+   {foreach $goods as $k=>$v}
+    <div class="module_row module_row_1047918 MOD_ID_927998 has-log-mod" >
+     <div class="mod_row MCUBE_MOD_ID_927998"> 
+      <!--右边区域要绑定的资源位--> 
+      <div class="mainContent" style="margin-bottom:48px;"> 
+       <div class="topLink"> 
+        <!--顶部标题链接--> 
+        <div class="lazyData clearfix cateTitleBar yahei" > 
+         <div class="sideIcon" style="background-color: #8FABFF"></div> 
+         <div class="cateTitleName col333">
+          {$v['name']}
+         </div> 
+        </div> 
+       </div> 
+       <div class="clearfix" > 
+        <!--左边大图--> 
+        <div class="leftBanner fl lazyData cube-acm-node has-log-mod" > 
+         <a href="/web/goodlist" target="_blank" class="cube-acm-node">
+		   <img class="leftBannerImg fl " src="/static/index/images/ad5.jpg" />
+		 </a> 
+        </div> 
+        <!--中间左边商品轮播--> 
+        <div class="topSwiper fl lazyData" >
+         <div class="mslide_content_box"> 
+          <div class="mslide_banners"> 
+           <div class="mslide_banner clearfix mslide_banner_show" style="left: 0px;">
+            {foreach $v['goods'] as $kk=>$vv}
+            <div class="swiper-item fl"> 
+             <a href="/web/goods/{$vv['id']}" class="cube-acm-node has-log-mod" target="_blank" >
+              <div class="swiper-img-wrap J_dynamic_imagebox J_loading_success"  > 
+               <img class="J_dynamic_img fill_img" src="{$vv['goods_subimg']}" alt="" />
+              </div> <p class="swiper-item-title">{$vv['goods_name']}</p>
+			   <p class="swiper-item-price"> <span>&yen;</span>{$vv['original_price']}</p>
+			  </a> 
+            </div>
+            {/foreach}
+           </div>
+
+          </div>
+         </div>
+
+        </div>
+        <div class="otherSlider lazyData" ></div>
+        <!--右边区域-->
+        <div class="rightWrapper fl lazyData">
+         <div class="bg-white">
+          <div class="header-wrapper"> 
+           <span class="goods-shopName">热销商品推荐</span> 
+           <span class="turn-next">换一批</span> 
+          </div>
+          {foreach $v['hot'] as $kkk=>$vvv}
+          <a class="right-goods-item clearfix cube-acm-node has-log-mod" href="/web/goods/{$vvv['id']}" target="_blank" >
+           <div class="J_dynamic_imagebox right-goods-img fl J_loading_success" >
+            <img class="J_dynamic_img fill_img" src="{$vvv['goods_subimg']}" alt="" />
+           </div> 
+           <div class="goods-info fl"> 
+            <p class=" goods-info-title">{$vvv['goods_name']}</p>
+            <p class=" goods-info-price"><span>&yen;</span>{$vvv['original_price']}</p>
+           </div></a>
+          {/foreach}
+         </div>
+        </div> 
+       </div> 
+      </div> 
+     </div>
+    </div>
+   {/foreach}
+	 <!-- 中间的商品展示开始--->
+   </div> 
+  </div> 
+  
+  <!---footer开始-->
+{include file='public/footer' /}
+  <!---footer结束-->
+
+
+<script src="/static/index/lib/swiper/js/swiper.min.js"></script>
+
+ <script>
+  var $top = $('.sec-mainNav').offset().top + $('.sec-mainNav').height()
+  //左侧导航动画
+  $('.sec-mainNav li').on('mouseenter', function() {
+   var $height = $(this).offset().top + $(this).find('.menu-panel').outerHeight()
+   $(this).find('.menu-panel').show()
+   if($height - $top >= 0) {
+    $(this).find('.menu-panel').css({
+     top: -($height - $top) + 'px'
+    })
+   }
+
+  })
+  $('.sec-mainNav li').on('mouseleave', function() {
+   $(this).find('.menu-panel').hide()
+  })
+
+
+
+  var swiper = new Swiper('.swiper-container', {
+   autoplay:true,
+   pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+    renderBullet: function (index, className) {
+     return '<span class="' + className + '">' + (index + 1) + '</span>';
+    },
+   },
+  });
+ </script>
+ </body>
+</html>

@@ -1,0 +1,17 @@
+<div id="header" class="site-top-nav " data-ptp="_head">
+    <div class="wrap">
+        <a href="/" rel="nofollow" class="home fl">首页</a>
+        <ul class="header-top">
+            {if $Think.session.username==null}
+            <li class="s1 show-nologin"> <a rel="nofollow" class="J_nav_btn_login" href="/web/login">登录</a> </li>
+            <li class="s1 show-nologin"> <a rel="nofollow" class="J_nav_btn_login" href="/web/register">注册</a> </li>
+            {else /}
+            <li class="s1 show-nologin"><a rel="nofollow" class="J_nav_btn_login" href="javascript:;">{$Think.session.username}</a></li>
+            <li class="s1 show-nologin"> <a rel="nofollow" class="J_nav_btn_login" href="/web/loginout">退出</a> </li>
+            {/if}
+
+            <li class="s1 myorder has-line"> <a href="/web/userpic/userpic" target="_blank" class="text display_u" rel="nofollow">我的订单</a> </li>
+            <li class="s1 has-line shopping-cart-v2"> <a class="cart-info-wrap" href="/web/cart" target="_blank" rel="nofollow"> <span class="cart-info">购物车</span> </a> <i class="icon-delta"></i> <span class="shopping-cart-loading"></span> </li>
+        </ul>
+    </div>
+</div>

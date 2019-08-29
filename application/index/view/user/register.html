@@ -1,0 +1,155 @@
+﻿<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Cache-Control" content="no-transform "/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>注册</title>
+    <meta name="keywords" content="蘑菇街账号注册,蘑菇街登陆"/>
+    <meta name="description" content="蘑菇街登陆页面，欢迎回家"/>
+
+    <link rel="stylesheet" type="text/css" href="/static/index/css/bottom.css" media="all"/>
+    <link href="/static/index/css/index.css-944b1a6d.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="/static/index/lib/validform/css/style.css" media="all"/>
+
+    <script src="/static/index/lib/validform/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/index/lib/validform/js/Validform_v5.3.2_min.js"></script>
+    <script src="/static/index/lib/layer/layer.js"></script>
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .get_tel_code {
+            display: inline-block;
+            width: 125px;
+            height: 42px;
+            line-height: 42px;
+            text-align: center;
+            margin-right: 10px;
+            color: #fff;
+            background-color: #ff5777
+        }
+
+        .tab_on {
+            color: #fe617a;
+            height: 41px;
+            border-bottom: 2px solid #ff4066
+        }
+
+        .get_tel_code:hover {
+            background: #ff3058
+        }
+    </style>
+</head>
+<body class="media_screen_1200">
+
+<div id="body_wrap">
+    <div class="login_wrap">
+        <div class="logo_wrap">
+            <div class="logo">
+                <a title="蘑菇街" href="//www.mogujie.com" class="mainlogo logo_mgj_img"></a>
+                <!-- 新增注册页绑定手机提示 -->
+                <span class="login-logo-tip">依《网络安全法》相关要求，即日起蘑菇街会员登陆需绑定手机。为保障您的账户安全及正常使用，如您尚未绑定，请尽快完成绑定，感谢您的理解和支持!</span>
+            </div>
+        </div>
+        <div class="content clearfix" style="background:url(/static/index/images/login.jpg) no-repeat center center;">
+            <div class="lg_banner">
+            </div>
+            <div class="lg_left ui-option-main-box" id="lg_content">
+                <!-- 注册方式tab -->
+                <div class="toggle-qrcode"></div>
+
+                <div class="login_mod_tab">
+                    <div class="fl mod">
+                        <a class="lo_mod" lo-mod="normal" href="/web/login" title="普通登录">登录</a>
+                        <a class="lo_mod tab_on" lo-mod="normal" href="/web/register" title="普通注册">注册</a>
+                    </div>
+
+                </div>
+                <div id="signform" class="formbox">
+                    <p class="error_tip" style="display: block;">请输入用户名/邮箱/手机号</p>
+                    <div class="lg_form">
+                        <form method="post" id="demoform">
+                            <!-- 正常注册 start -->
+                            <div class="mod_box lo_mod_box" data-isshow="0">
+                                <div class="ui-sign-item ui-name-item lg_item lg_name">
+                                    <input maxlength="32" id="mobile" class="ui-input pwd_text" data-type="username"
+                                           name="username" placeholder="用户名/邮箱/手机号" style="border-color:#CFCFCF;"
+                                           type="text" datatype="m" errormsg="请输入正确手机号"/>
+                                </div>
+                                <div class="ui-sign-item ui-sign-common-item lg_item lg_pass">
+                                    <input maxlength="32" class="ui-input pwd_text" data-type="loginpassword"
+                                           name="userpwd" value="" placeholder="密码" style="border-color:#CFCFCF;"
+                                           type="password" datatype="s5-16" errormsg="密码至少5个字符,最多16个字符！"/>
+                                </div>
+
+                                <div class="lg_item lg_getcode">
+                                    <a href="javascript:;" class="get_tel_code" id="get_tel_code">获取动态密码</a>
+                                    <input maxlength="32" name="code" class="ui-input pwd_text width_180"
+                                           datatype="s6-6" placeholder="动态密码" style="border-color:#CFCFCF;"
+                                           type="text"/>
+                                </div>
+                            </div>
+
+
+                            <div class="lg_login clearfix">
+                                <input value="注册" class="sub" type="submit"/>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var onOff = true;
+    $("#get_tel_code").click(function () {
+        var phone = $("#mobile").val();
+        if (!phone) {
+            layer.msg('请输入手机号！', {icon: 0});
+            return false
+        }
+        if (onOff == false) {
+            return false
+        }
+        onOff = false;
+        $.post('/web/getcode', {phone: phone}, function (res) {
+            var time = 60;
+            var timer = setInterval(function () {
+                $("#get_tel_code").text(res.msg + '(' + time + 's)')
+                time--;
+                if (time == 0) {
+                    time = 60;
+                    onOff = true;
+                    $("#get_tel_code").text('获取动态密码')
+                }
+            }, 1000)
+        })
+
+    })
+
+    $("#demoform").Validform({
+        tiptype: 4,
+        ajaxPost: true,
+        url: '/web/toregister',
+        datatype: {'m': /^1[3456789]\d{9}$/},
+        callback: function (data) {
+            console.log(data);
+            if (data.status == 'fail') {
+                layer.msg(data.msg);
+            } else {
+                layer.msg('注册成功！');
+                setTimeout(function () {
+                    location.href = '/web/login';
+                }, 2000)
+            }
+
+
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,196 @@
+﻿<html>
+<head>
+
+    <meta charset="UTF-8"/>
+    <title>订单列表_蘑菇街</title>
+    <meta name="keywords" content="蘑菇街,mogujie,买手,买手街,网购"/>
+    <meta name="description" content=""/>
+
+    <link href="/static/index/css/index_1.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="/static/index/css/bottom.css" media="all"/>
+    <link href="/static/index/css/index.css-a2f37bbc.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/static/index/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/index/lib/layer/layer.js"></script>
+
+</head>
+<body class="media_screen_1200">
+
+<!-- 顶部导航开始-->
+{include file='public/header' /}
+<!-- 顶部导航结束-->
+
+<!-- 中间logo以及搜索区域开始 -->
+<div class="header_mid clearfix">
+    <div class="wrap clearfix">
+        <a rel="nofollow" class="logo" title="蘑菇街首页" style="background-image: none;">
+            <img src="/static/index/images/logo.gif" alt="蘑菇街，我的买手街"/>
+        </a>
+        <div class="normal-search-content">
+            <div class="top_nav_search" id="nav_search_form">
+                <!--搜索框 -->
+                <div class="search_inner_box clearfix">
+                    <div class="selectbox" data-v="1">
+                        <span class="selected">搜商品</span>
+                    </div>
+                    <form action="/search/" method="get" id="top_nav_form">
+                        <input data-tel="search_book" name="q" class="ts_txt fl" data-def="牛仔裤" value=""
+                               autocomplete="off" def-v="牛仔裤" type="text"/>
+                        <input value="搜  索" class="ts_btn" type="submit"/>
+                        <input name="t" value="bao" id="select_type" type="hidden"/>
+                    </form>
+                    <div class="top_search_hint is-not-ie8-hack"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 中间logo以及搜索区域结束 -->
+
+<div id="body_wrap">
+    <div class="mu_wrap wrap clearfix">
+        <div id="navListWrap">
+            <div class="mu_nav_wrap">
+
+                <!---左侧导航开始-->
+                {include file='public/leftnav' /}
+            </div>
+        </div>
+
+
+        <div class="mu_content_wrap">
+
+            <div class="order-title">
+                <ul class="order-title-column clearfix">
+                    <li class="goods">商品</li>
+                    <li class="price">单价(元)</li>
+                    <li class="quantity">数量</li>
+                    <li class="aftersale">售后</li>
+                    <li class="total">实付款(元)</li>
+                    <li class="status">交易状态</li>
+                    <li class="other">操作</li>
+                </ul>
+            </div>
+            <div id="orderWrap">
+                <div class="order-list">
+                    <div class="order-section finished" data-payid="79563824145946">
+                        <table class="order-table">
+                            {foreach $data as $k=>$v}
+                            <tbody>
+                            <tr class="order-table-header">
+                                <td colspan="7">
+                                    <div class="order-info fl">
+                                        <span class="no"> 订单编号： <span class="order_num"> {$v['child_order_no']} </span> </span>
+                                        <span class="deal-time"> 成交时间：{$v['create_time']|date="Y-m-d H:i:s"} </span>
+                            </tr>
+                            <tr class="order-table-item last">
+                                <td class="goods">
+                                    <a class="pic" href="javascript:;" title="查看宝贝详情" hidefocus="true" target="_blank">
+                                        <img src="{$v['goods_subimg']}" alt="查看宝贝详情" width="70"/> </a>
+                                    <div class="desc">
+                                        <p>
+                                            <a href="//shop.mogujie.com/detail/1khz1xo" target="_blank">{$v['goods_name']}</a>
+                                        </p>
+                                        <p>颜色：{$v['goods_color']}</p>
+                                        <p>尺码：{$v['goods_type']}</p>
+                                    </div>
+                                </td>
+                                <td class="price"><p class="price-old">{$v['original_price']}</p>
+                                    <p>{$v['goods_price']}</p></td>
+                                <td class="quantity">{$v['goods_num']}</td>
+                                <td class="aftersale"></td>
+                                <td class="total" rowspan="1"><p class="total-price">￥{$v['goods_money']}</p>
+                                    <p><span>(全国包邮)</span></p></td>
+                                <td class="status" rowspan="1">
+                                    {if $v['status'] == 1}
+                                    <p class=""> 已支付，待发货 </p>
+                                    {elseif $v['status'] == 2 /}
+                                    <p class=""> 已发货 </p>
+                                    {elseif $v['status'] == 3 /}
+                                    <p class=""> 交易关闭 </p>
+                                    {elseif $v['status'] == 4 /}
+                                    <p class=""> 交易完成 </p>
+                                    {elseif $v['status'] == 5 /}
+                                    <p class=""> 退款处理中 </p>
+                                    {else /}
+                                    <p class=""> 退款完成 </p>
+                                    {/if}
+
+
+                                    {if $v['status'] == 1}
+                                    <a href="" class="order-link go-detail-link" target="_blank">提醒卖家发货</a>
+                                    {elseif $v['status'] == 2 /}
+                                    <a class="order-link order-remove track" data-id="{$v['id']}" href="javascript:;">查看物流</a>
+                                    {else /}
+                                    <p class=""></p>
+                                    {/if}
+                                </td>
+                                <td class="other" rowspan="1">
+                                    <ul>
+                                        {if $v['status'] == 1}
+                                        <li>
+                                            <a class="order-link order-remove callback" data-id="{$v['id']}"
+                                               href="javascript:;">申请退款</a>
+                                        </li>
+                                        {elseif $v['status'] == 2 /}
+                                        <li>
+                                            <a class="order-link order-remove callback" data-id="{$v['id']}"
+                                               href="javascript:;">申请退款</a>
+                                            <a class="order-link order-remove" href="javascript:;">确认收货</a>
+                                        </li>
+                                        {elseif $v['status'] == 5 /}
+                                        <li>
+                                            <a class="order-link order-remove cancel" data-id="{$v['id']}"
+                                               href="javascript:;">取消退款</a>
+                                        </li>
+                                        {/if}
+                                    </ul>
+                                    <script>
+                                        $(".track").mouseover(function () {
+                                            var id = $(this).attr('data-id');
+                                            $.post("/web/order/track", {id: id}, function (res) {
+                                                if (res.status == 'success') {
+                                                    layer.tips(res.msg, '.track', {
+                                                        tips: [1, '#ccc'],
+                                                        area: ['350px', 'auto'],
+                                                        time: 0
+                                                    });
+                                                } else {
+                                                    layer.msg(res.msg, {icon: 2});
+                                                }
+                                            })
+                                        })
+                                        $(".callback").click(function () {
+                                            var id = $(this).attr('data-id');
+                                            location.href = '/web/user/callback/' + id;
+                                        })
+                                        $(".cancel").click(function () {
+                                            var id = $(this).attr('data-id');
+                                            $.post('/web/order/cancel', {id: id}, function (res) {
+                                                if (res.status == 'fail') {
+                                                    layer.msg(res.msg);
+                                                } else {
+                                                    layer.msg(res.msg, {icon: 6}, function () {
+                                                        location.reload();
+                                                    })
+                                                }
+                                            })
+                                        })
+                                    </script>
+                                </td>
+                            </tr>
+                            </tbody>
+                            {/foreach}
+                        </table>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

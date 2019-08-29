@@ -1,0 +1,154 @@
+{extend name="public/base"/}
+{block name="content"}
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label">
+                            <span class="x-red">*</span>图片上传</label>
+                        <div>
+                            <a type="button" class="layui-btn" id="test">
+                                <i class="layui-icon">&#xe67c;</i>选择图片
+                            </a>
+                            <a type="button" class="layui-btn" id="upload">
+                                <i class="layui-icon">&#xe67c;</i>重新上传
+                            </a>
+                            <input type="hidden" name="_method" value="put"/>
+                            <input type="hidden" name="id" value="{$data['id']}"/>
+                        </div>
+
+                        <div class="thumbnail" style="margin-left: 100px;">
+                            <div id="container" style="margin:10px;position: relative;display: inline-block">
+                                <img style="width: 100px;height: 100px" src="{$data['imgsrc']}"/>
+                                <span style="background: rgba(0,0,0,.5);color: #fff;width: 100%;text-align: center;position: absolute;left: 0;bottom: 0;">{$data['imgtitle']}</span>
+                            </div>
+                        </div>
+
+                        </div>
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label">
+                            <span class="x-red">*</span>图片名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" value="{$data['imgtitle']}" name="imgtitle" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="" class="layui-form-label">
+                            <span class="x-red">*</span>url</label>
+                        <div class="layui-input-inline">
+                            <input type="text" value="{$data['imgurl']}"  name="imgurl" required="" lay-verify="" autocomplete="off" class="layui-input"></div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label">
+                            <span class="x-red">*</span>图片类型</label>
+                        {if $data['imgtype']==1}
+                        <div class="layui-input-block">
+                            <input type="radio" name="imgtype" value="0" title="banner" >
+                            <input type="radio" name="imgtype" value="1" title="logo" checked>
+                        </div>
+                        {else /}
+                        <input type="radio" name="imgtype" value="0" title="banner" checked>
+                        <input type="radio" name="imgtype" value="1" title="logo" >
+                        {/if}
+
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label">
+                            <span class="x-red">*</span>排序</label>
+                        <div class="layui-input-inline">
+                            <input type="text" value="{$data['imgsort']}" name="imgsort" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    </div>
+
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label"></label>
+            <button class="layui-btn" lay-filter="add" lay-submit="">修改</button>
+        </div>
+        </form>
+        </div>
+        </div>
+        <script>
+            layui.use(['form', 'layer'],
+            function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                layer = layui.layer;
+                //监听提交
+                form.on('submit(add)',
+                function(data) {
+                    //发异步，把数据提交给php
+                    console.log(data.field);
+                    $.post('/admin/image/'+data.field.id,data.field,function (res) {
+                        console.log(res);
+                        if(res.status=='success'){
+                            layer.alert(res.msg, {icon: 6});
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                            window.parent.location.reload();
+                        }else {
+                            layer.alert(res.msg, {icon: 5})
+                        }
+                    })
+                    return false;
+                });
+
+            });</script>
+        <script>var _hmt = _hmt || []; (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();</script>
+
+<script>
+    layui.use('upload', function(){
+        var upload = layui.upload;
+
+        upload.render({
+            elem: '#test'
+            ,url: '/admin/imgupload'
+            ,auto: false //选择文件后不自动上传
+            ,bindAction: '#upload' //指向一个按钮触发上传
+            ,choose: function(obj){
+                //将每次选择的文件追加到文件队列
+                var files = obj.pushFile();
+
+                //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+
+                obj.preview(function(index, file, result){
+                    // console.log(index); //得到文件索引
+                    // console.log(file); //得到文件对象
+                    // console.log(result); //得到文件base64编码，比如图片
+                    $('.thumbnail').html('<div id="container_'+index+'" style="margin:10px;position: relative;display: inline-block">'+
+                        '<img style="width: 100px;height: 100px" src="'+result+'"/>' +
+                        '<i id="del_'+index+'" style="position: absolute;right: 0" class="layui-icon layui-icon-close"></i>'+
+                        '<span style="background: rgba(0,0,0,.5);color: #fff;width: 100%;text-align: center;position: absolute;left: 0;bottom: 0;">'+file.name+'</span>'+'</div>');
+
+                    $('#del_'+index).bind('click',function(){
+                        //删除文件队列中指定的文件
+                        delete files[index];
+                        //删除页面上的图片
+                        $('#container_'+index).remove();
+                    });
+                    //obj.resetFile(index, file, '123.jpg'); //重命名文件名，layui 2.3.0 开始新增
+
+                    //这里还可以做一些 append 文件列表 DOM 的操作
+
+                    //obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
+                    //delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+                });
+            },
+            before:function () {
+                layer.load();
+            },
+            done:function (res,index,upload) {
+                console.log(res);
+                $('.thumbnail').html('<img style="width: 100px;height: 100px;margin: 10px 0 10px 10px;" src="'+res.msg+'" /><input type="hidden" name="imgsrc" value="'+res.msg+'"/>');
+                layer.closeAll('loading'); //关闭loading
+                layer.msg('图片上传成功');
+            }
+        });
+
+    });
+</script>
+
+{/block}

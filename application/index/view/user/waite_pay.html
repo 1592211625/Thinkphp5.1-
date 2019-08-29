@@ -1,0 +1,110 @@
+﻿<html>
+ <head> 
+
+  <link href="/static/index/css/index_1.css" rel="stylesheet" type="text/css" /> 
+  <link rel="stylesheet" type="text/css" href="/static/index/css/bottom.css" media="all" /> 
+  <link href="/static/index/css/index.css-a2f37bbc.css" rel="stylesheet" type="text/css" /> 
+
+
+ </head> 
+ <body class="media_screen_1200"> 
+  
+	<!-- 顶部导航开始-->
+    {include file='public/header' /}
+    <!-- 顶部导航结束-->
+
+  <!-- 中间logo以及搜索区域开始 --> 
+  <div class="header_mid clearfix"> 
+   <div class="wrap clearfix"> 
+    <a rel="nofollow"  class="logo" title="蘑菇街首页" style="background-image: none;">
+	<img src="/static/index/images/logo.gif" alt="蘑菇街，我的买手街" />
+	</a> 
+    <div class="normal-search-content"> 
+     <div class="top_nav_search" id="nav_search_form"> 
+      <!--搜索框 --> 
+      <div class="search_inner_box clearfix"> 
+       <div class="selectbox" data-v="1"> 
+        <span class="selected">搜商品</span> 
+       </div> 
+       <form action="/search/" method="get" id="top_nav_form"> 
+        <input data-tel="search_book" name="q" class="ts_txt fl" data-def="牛仔裤" value="" autocomplete="off" def-v="牛仔裤"  type="text" /> 
+        <input value="搜  索" class="ts_btn" type="submit" /> 
+        <input name="t" value="bao" id="select_type" type="hidden" /> 
+       </form> 
+       <div class="top_search_hint is-not-ie8-hack"></div> 
+      </div> 
+     </div>
+    </div> 
+   </div> 
+  </div> 
+ <!-- 中间logo以及搜索区域结束 -->  
+
+  
+  <div id="body_wrap"> 
+   <div class="mu_wrap wrap clearfix"> 
+    <div id="navListWrap">
+     <div class="mu_nav_wrap"> 
+	 
+	 
+     <!---左侧导航开始-->
+      {include file='public/leftnav' /}
+
+       </div>
+      </div> 
+	  
+	  
+    <div class="mu_content_wrap"> 
+     <div class="order-search" id="searchControl" style="display: block;"> 
+ 
+     </div> 
+
+     <div id="orderWrap">
+      <div class="order-list"> 
+       <div class="order-section unpaid"> 
+        <table class="order-table"> 
+         <tbody> 
+          <tr class="order-table-header"> 
+           <td colspan="7"> 
+            <div class="order-info fl"> 
+             <span class="no"> 订单编号： <span class="order_num"> 79564682635946 </span> </span> 
+             <span class="deal-time"> 成交时间：2018-09-12 12:18:06 </span> 
+          </tr> 
+          <tr class="order-table-item last"> 
+           <td class="goods"> <a class="pic" href="//shop.mogujie.com/detail/1m82m6u" title="查看宝贝详情" hidefocus="true" target="_blank"> <img src="/static/index/images/ad25.jpg" alt="查看宝贝详情" width="70" /> </a> 
+            <div class="desc"> 
+             <p> <a href="//shop.mogujie.com/detail/1m82m6u" target="_blank">大码秋装女新款洋气套装胖mm最爱藏肉遮肚子连衣裙两件套潮</a> <a class="snapshot" href="//order.mogujie.com/trade/snap?orderId=11ken0rhvak" target="_blank">[交易快照]</a> </p> 
+             <p>颜色：咖啡色</p> 
+             <p>尺码：L</p> 
+
+            </div> </td> 
+           <td class="price"> <p class="price-old">127.15</p> <p>69.00</p> </td> 
+           <td class="quantity">1</td> 
+           <td class="aftersale"> </td> 
+           <td class="total" rowspan="1"> <p class="total-price">￥ 69.00</p> <p> <span>(全国包邮)</span> </p> </td> 
+           <td class="status" rowspan="1"> <p class="wait_pay"> 待付款 </p> <a href="/order/detail4buyer?orderId=79564682635946" class="order-link go-detail-link" target="_blank">订单详情</a> </td> 
+           <td class="other" rowspan="1"> </td> 
+          </tr> 
+          <tr class="order-table-footer"> 
+           <td colspan="4"> 
+            <ul> 
+             <li> <p class="timer" data-time="878">还剩0天0时14分</p> </li> 
+             <li> <a class="order-link order-cancel" href="javascript:;" data-payid="79564682625946">取消订单</a> </li> 
+            </ul> </td> 
+           <td class="total"> <span class="sub">总计：</span>￥69.00 </td> 
+           <td class="status"> <p class="wait_pay">等待付款</p> </td> 
+           <td class="other"> <a class="order-btn primary order-pay" target="_blank" href="https://order.mogujie.com/order/cashier?orderId=79564682625946">付款</a> </td> 
+          </tr> 
+         </tbody> 
+        </table> 
+       </div> 
+      </div>
+      <div id="paginator-list"></div>
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  
+
+
+ </body>
+</html>

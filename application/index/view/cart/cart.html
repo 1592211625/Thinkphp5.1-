@@ -1,0 +1,268 @@
+﻿<html>
+ <head>
+<!--  <script async="" src="/static/index/js/analytics.js"></script>-->
+
+  <meta charset="UTF-8" /> 
+
+  <title>我的购物车</title> 
+
+  <link href="/static/index/css/index.css-709a8a6f.css" rel="stylesheet" type="text/css" /> 
+  <link rel="stylesheet" type="text/css" href="/static/index/css/bottom.css" media="all" /> 
+  <link href="/static/index/css/index.css-d20df184.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/index/js/pkg-pc-base.js"></script>
+
+ </head> 
+ <body class="media_screen_1200"> 
+ 
+ <!-- 顶部导航开始-->
+     {include file='public/header' /}
+<!-- 顶部导航结束-->
+
+
+  <div id="body_wrap"> 
+   <div class="g-header clearfix"> 
+    <div class="g-header-in wrap clearfix"> 
+     <div class="process-bar"> 
+      <div class="md_process md_process_len4"> 
+       <div class="md_process_wrap md_process_step1_5"> 
+        <div class="md_process_sd"></div> 
+        <i class="md_process_i md_process_i1"> 1 <span class="md_process_tip">购物车</span> </i> 
+        <i class="md_process_i md_process_i2"> 2 <span class="md_process_tip">确认订单</span> </i> 
+        <i class="md_process_i md_process_i3"> 3 <span class="md_process_tip">支付</span> </i> 
+        <i class="md_process_i md_process_i4">ok
+<!--         <img src="/static/index/images/171012_12eba941iia4fajf729ked218cd8k_23x23.png" alt="" width="23" height="23" />-->
+         <span class="md_process_tip">完成</span> </i>
+       </div> 
+      </div> 
+     </div> 
+     <div class="logo logo-cart"></div> 
+    </div> 
+   </div> 
+
+  
+   <div class="g-wrap wrap"> 
+    <ul class="clearfix cart_slide" id="cartSlide"> 
+     <li>
+      <a href="javascript:;" url="0" class="mr55 cart_slide_item cartSlideItemAll cart_slide_item_cur  "> 全部商品 <span class="num">1</span> </a> </li>
+    </ul> 
+    <!-- 不为空的情况 --> 
+    <div class="cart_wrap cart_nobdbtm">
+     {if !empty($data)}
+     <div class="cart_page_wrap" id="cartPage"> 
+      <input name="shop_domain" id="shop_domain" value="" type="hidden" /> 
+      <input name="data_props" id="data_props" value="" type="hidden" /> 
+      <input id="coudan_type" value="0" type="hidden" /> 
+      <!-- 表格 --> 
+      <table class="cart_table" id="cartOrderTable"> 
+       <thead> 
+        <tr> 
+         <th class="cart_table_check_wrap cart_alleft">
+          <input name="s_all" class="s_all tr_checkmr" id="s_all_h" type="checkbox" />
+          <label for="s_all_h">全选</label>
+         </th>
+         <th class="cart_table_goods_wrap"></th> 
+         <th class="cart_table_goodsinfo_wrap">商品信息</th> 
+         <th>单价(元)</th> 
+         <th class="cart_table_goodsnum_wrap">数量</th> 
+         <th class="cart_table_goodssum_wrap">小计(元)</th> 
+         <th class="cart_table_goodsctrl_wrap">操作</th> 
+        </tr> 
+       </thead> 
+       <tbody>
+        {foreach $data as $k=>$v}
+        <tr class="cart_mitem " >
+         <td class="vm ">
+          <input class="cart_thcheck" data-goods-index="{$k}" data-total="{$v['total']}" data-num="{$v['goods_num']}" type="checkbox" />
+         </td>
+         <td class="cart_table_goods_wrap">
+          <!-- 商品 --> <a href="//shop.mogujie.com/detail/1khz1xo?ptpfrom=1.fqjWab.0.0.mSpOOVjI" target="_blank" class="cart_goods_img">
+          <img class="cartImgTip" src="{$v['goods_info']['goods_subimg']}" alt="{$v['goods_info']['goods_name']}" width="78" height="78" />
+          <!--<img class="event_tips" src="/static/index/images/180827_07fbdg92h894abdj3cg0jfl8f7i3a_112x35.png" />-->
+           <!-- 活动标 --> 
+           <!--拼团标识-->
+          <!-- 商品title --> <a href="/web/goods/{$v['goods_id']}" target="_blank" class="cart_goods_t cart_hoverline" title="{$v['goods_info']['goods_name']}"> {$v['goods_info']['goods_name']} </a>
+          <!-- 321活动提醒 <div class="event_tip_wrap"> <p class="event_tips"> <b><img src="" alt=""></b><span class="e_price">321活动提醒</span> </p> </div>--> 
+          <!-- 321活动提醒 end --> <p class="remind_btm"> 
+           <!-- 降价信息 --> <span class="cut_infor mr5" style="color:static/images/35fbd31ed97342e2a435d9bd72eab09b.gif;background-image:url(undefined);background-color:undefined">降价6.60元</span> </p> </td> 
+         <td>
+          <p class="cart_lh20">颜色：{$v['goods_color']}</p>
+          <p class="cart_lh20">尺码：{$v['goods_type']}</p>
+         </td>
+         <td class="cart_alcenter">
+          <!-- 单价 --> <p class="cart_lh20 cart_throughline cart_lightgray">{$v['goods_info']['original_price']}</p>
+          <p class="cart_lh20 cart_bold cart_data_sprice" data-price="59.90">{$v['sku_info']['sku_price']}</p>
+          <p> <span class="cart_tip_yellow cart_tip_focuswidth">拼团价</span> </p> </td>
+         <td class="cart_alcenter">
+          <!-- 数量 --> 
+          <div> 
+           <div class="cart_num cart_counter">
+            <span class="cart_num_reduce" data-index="{$k}" data-price="{$v['sku_info']['sku_price']}" onclick="minus(this)"></span>
+               <input style="height: 27px;" class="cart_num_input cart_bold" maxlength="3" value="{$v['goods_num']}" type="text" />
+            <span class="cart_num_add" data-num="{$v['sku_info']['sku_num']}" data-index="{$k}" data-price="{$v['sku_info']['sku_price']}" onclick="add(this)"></span>
+           </div> 
+          </div> </td> 
+         <td class="cart_alcenter">
+          <!-- 小计 --> <p class="cart_deep_red cart_font16 item_sum" data-unit="59.9" data-price="59.90">{$v['total']}</p> </td>
+         <td class="cart_alcenter">
+          <!-- 操作 --> <a href="javascript:;" class="cart_hoverline delete" data-index="{$k}">删除</a> </td>
+        </tr>
+        {/foreach}
+       </tbody>
+       <script>
+        //删除商品
+        $(".delete").click(function () {
+         var index = $(this).attr('data-index');
+         $.post('/web/cart/delcart',{index:index},function (res) {
+          if(res){
+           location.reload();
+          }
+         })
+        })
+
+        //全选
+        $("#s_all_h").click(function () {
+         var status = $('#s_all_h').prop('checked');
+         $('.cart_thcheck').each(function () {
+          $(this).prop('checked', status)
+         })
+         getShopInfo()
+        })
+        
+        //单选s
+        $('.cart_thcheck').click(function () {
+         var buffer = true;
+         $('.cart_thcheck').each(function () {
+          if(this.checked == false){
+           buffer = false;
+          }
+         })
+         if(buffer == false){
+          $('#s_all_h').prop('checked',false);
+         }else{
+          $('#s_all_h').prop('checked',true);
+         }
+         getShopInfo()
+        })
+
+        //加
+        function add(obj){
+         var oldNumber = $(obj).prev().val();
+         var num = $(obj).attr('data-num');
+         if(oldNumber==num){
+          alert('购买商品已达上限!');
+          return false
+         }
+         var index = $(obj).attr('data-index');
+         var price = $(obj).attr('data-price');
+         var newNumber = ++oldNumber;
+         $(obj).prev().val(newNumber);
+         $(obj).parents('td').next().find('p').text(newNumber*price);
+         $.post('/web/cart/modcart',{index:index,number:newNumber},function(res){
+         })
+         getShopInfo()
+        }
+        //减
+        function minus(obj) {
+         var oldNumber = $(obj).next().val();
+         var index = $(obj).attr('data-index');
+         var price = $(obj).attr('data-price');
+         if(oldNumber==1) {
+          var judge = confirm('是否删除当前商品')
+          if (judge) {
+           $.post('/web/cart/delcart', {index: index}, function (res) {
+            if (res) {
+             location.reload();
+            }
+           })
+          }
+         }
+         var newNumber = --oldNumber;
+         $(obj).next().val(newNumber);
+         $(obj).parents('td').next().find('p').text(newNumber*price);
+         $.post('/web/cart/modcart',{index:index,number:newNumber},function(res){
+         })
+         getShopInfo()
+        }
+
+        //选择框
+        function getShopInfo() {
+          var money = 0;
+          var number = 0;
+          var buffer = false;
+          $('.cart_thcheck').each(function() {
+           if (this.checked) {
+            money += parseFloat($(this).attr('data-total'));
+            number += parseFloat($(this).attr('data-num'));
+            buffer = true;
+           }
+          })
+         $('.goodsNum').text(number);
+         $('.goodsSum').text(money);
+
+         if(buffer){
+          $('.cart_paybtn').removeClass('cart_paybtn_disable')
+         }else{
+          $('.cart_paybtn').addClass('cart_paybtn_disable')
+         }
+        }
+
+       //全部商品
+        $(".num").text($(".cart_table tbody tr").length)
+       </script>
+      </table> 
+      <!-- 表格 end -->
+     </div>
+     {else /}
+     <div class="cart_page_wrap" id="cartEmptyPage">
+      <div class="cart_empty cart_empty_act">
+       <h5 class="">购物车还是空的哦</h5>
+       <p class="tip">领券购买更划算</p>
+
+      </div>
+
+      
+     </div>
+     {/if}
+    </div> 
+    <div class="cart_paybar wrap" id="cartPaybar"> 
+     <a href="javascript:;" class="cart_paybtn fr cart_paybtn_disable" id="payBtn">去付款</a>
+     <div class="cart_paybar_info_cost cart_deep_red cart_bold cart_font26 cart_money fr goodsSum">
+      &yen; 0.00
+     </div> 
+     <div class="cart_paybar_info cart_pregray fr">
+       共有 
+      <span class="cart_deep_red goodsNum">0</span> 件商品，总计： 
+     </div> 
+  
+    </div> 
+
+   </div>
+  </div> 
+ 
+   </div>
+  </div> 
+  <script>
+   //提交购物车
+   $("#payBtn").click(function () {
+    var buffer = false;
+    var index = '';
+    $(".cart_thcheck").each(function () {
+     if(this.checked){
+      index+=$(this).attr('data-goods-index')+'t';
+      buffer=true;
+     }
+    })
+    index = index.substr(0,index.length-1);
+    if(buffer){
+     location.href = '/web/topay/'+index+'/cart';
+    }else {
+     alert("请选择商品");
+     return false;
+    }
+   })
+  </script>
+    <!---footer开始-->
+ {include file='public/footer' /}
+ </body>
+</html>

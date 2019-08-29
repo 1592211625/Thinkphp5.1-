@@ -1,0 +1,178 @@
+﻿<html>
+ <head> 
+ 
+  <meta charset="UTF-8" /> 
+  <link href="/static/index/css/index_1.css" rel="stylesheet" type="text/css" /> 
+  <link href="/static/index/css/index.css-93c948fe.css" rel="stylesheet" type="text/css" /> 
+  <script src="/static/index/js/jquery.js"></script>
+  <script src="/static/index/js/distpicker.js" > </script>
+
+     <link rel="stylesheet" type="text/css" href="/static/index/lib/validform/css/style.css" media="all" />
+
+     <script src="/static/index/lib/validform/js/Validform_v5.3.2_min.js"></script>
+
+ </head> 
+ <body class="media_screen_1200"> 
+
+  <!-- 顶部导航开始-->
+  {include file='public/header' /}
+<!-- 顶部导航结束-->
+
+  <!-- 中间logo以及搜索区域开始 --> 
+  <div class="header_mid clearfix"> 
+   <div class="wrap clearfix"> 
+    <a rel="nofollow"  class="logo" title="蘑菇街首页" style="background-image: none;">
+	<img src="/static/index/images/logo.gif" alt="蘑菇街，我的买手街" />
+	</a> 
+    <div class="normal-search-content"> 
+     <div class="top_nav_search" id="nav_search_form"> 
+      <!--搜索框 --> 
+      <div class="search_inner_box clearfix"> 
+       <div class="selectbox" data-v="1"> 
+        <span class="selected">搜商品</span> 
+       </div> 
+       <form action="/search/" method="get" id="top_nav_form"> 
+        <input data-tel="search_book" name="q" class="ts_txt fl" data-def="牛仔裤" value="" autocomplete="off" def-v="牛仔裤"  type="text" /> 
+        <input value="搜  索" class="ts_btn" type="submit" /> 
+        <input name="t" value="bao" id="select_type" type="hidden" /> 
+       </form> 
+       <div class="top_search_hint is-not-ie8-hack"></div> 
+      </div> 
+     </div>
+    </div> 
+   </div> 
+  </div> 
+ <!-- 中间logo以及搜索区域结束 -->  
+
+  
+  <div id="body_wrap"> 
+   <div class="mu_wrap wrap clearfix"> 
+    <div id="navListWrap">
+     <div class="mu_nav_wrap"> 
+      <!---左侧导航开始-->
+         {include file='public/leftnav' /}
+
+       </div>
+      </div> 
+    <div id="address_wrap">
+     <div class="addr_right topay" isaddress="true"> 
+      <h2 class="addr_title">地址管理</h2>
+      <div class="addr_edit" id="J_s_addr_edit">
+          {foreach $data as $k=>$v}
+           <div class="addr_section " aid="570781677">
+              <ul class="clearfix">
+                  <li class="name">{$v['user_name']}</li>
+                  <li class="addr" data-province="{$v['pro']}" data-city="{$v['city']}" data-area="{$v['dis']}" data-street="{$v['street']}">{$v['pro']}{$v['city']}{$v['dis']}{$v['street']}</li>
+                  <li class="zcode"></li>
+                  <li class="mobile">{$v['user_phone']}</li>
+                  <input type="hidden" id="del_id" value="{$v['id']}"/>
+                  <li class="oper">
+                      <a href="javascript:;" class="J_default" aid="570781677">设为默认</a>
+                      <a href="javascript:;" class="edit" aid="570781677">编辑</a>
+                      <a href="javascript:;" class="del nobd" aid="570781677">删除</a>
+                  </li>
+                  <li class="enaddr"></li>
+              </ul>
+          </div>
+          {/foreach}
+           <div class="add_new_addr clearfix" id="addAddress" style="margin-top: 10px;">
+            <span id="J_saddAddress">+添加地址</span>
+           </div>
+           <div class="addressbox_warp" style="display: none;">
+            <div class="addressbox" id="J_sAddrWrap"></div>
+            <div class="address_wrapper">
+             <div class="__addressPop">
+                 <form method="post" id="demoform">
+              <dl class="address_pop">
+<!--               <input class="J_addressid" name="addressId" value="" type="hidden" />-->
+<!--               <input class="J_isdefault" name="addressId" value="false" type="hidden" />-->
+               <dt>
+                省：
+               </dt>
+               <dd class="pt_ie6hack">
+                <i class="needicon">*</i>
+
+                 <div data-toggle="distpicker">
+                  <select name="pro"></select>
+                  <select name="city"></select>
+                  <select name="dis"></select>
+    </div>
+
+               </dd>
+               <dt>
+                街道地址：
+               </dt>
+               <dd>
+                <i class="needicon">*</i>
+                <textarea name="street" datatype="s5-16" errormsg="请填写正确街道名称" data-type="*" data-min="5" data-max="100" data-normal="请填写街道地址，最少5个字，最多不能超过100个字" data-errormsg="请填写街道地址，最少5个字，最多不能超过100个字" class="textarea formsize_large J_street J_form" cols="30" rows="3"></textarea>
+                <span class="prompt breakline">请填写街道地址，最少5个字，最多不能超过100个字</span>
+               </dd>
+               <dt>
+                收货人姓名：
+               </dt>
+               <dd>
+                <i class="needicon">*</i>
+                <input name="user_name" datatype="s3-8" errormsg="请填写正确收货人姓名" data-type="*" data-errormsg="请填写收货人" data-normal="" class="text formsize_normal J_name J_form vm" value="" type="text" />
+                <span class="prompt name_select"></span>
+               </dd>
+               <dt>
+                手机：
+               </dt>
+               <dd>
+                <i class="needicon">*</i>
+                <input name="user_phone" datatype="m" errormsg="请输入正确手机号" data-type="phone" data-errormsg="请填写正确的联系号码" data-normal="" class="text formsize_normal J_mobile J_form vm"  value="" type="text" />
+                <span class="prompt mobile_select"></span>
+               </dd>
+               <dt></dt>
+               <dd class="pt10 oper_btn">
+                <button href="javascript:;" type="submit" class="confirm_btn J_okbtn mr10">确认地址</button>
+                <button href="javascript:;" class="cancel_btn J_cancelbtn">取消</button>
+               </dd>
+              </dl>
+                 </form>
+             </div>
+            </div>
+            <!-- <div class="addressbox addressfirst addresslist" action="/trade/address/addfororder"> </div> -->
+           </div>
+      </div>
+     </div>
+    </div> 
+   </div> 
+  </div> 
+ </body>
+<script>
+    $("#addAddress").click(function () {
+        $(".addressbox_warp").show()
+    })
+    $(".cancel_btn").click(function () {
+        $(".addressbox_warp").hide()
+    })
+    $("#demoform").Validform({
+        tiptype:4,
+        ajaxPost:true,
+        url:'/web/address/addAddress',
+        datatype:{'m':/^1[3456789]\d{9}$/},
+        callback:function(res){
+            if(res.status=='success'){
+                alert(res.msg)
+                location.reload();
+            }else {
+                alert(res.msg)
+            }
+        }
+
+    });
+    $(".del").click(function () {
+        var del_id = $("del_id").val();
+        $.post('/web/address/delAddress/'+del_id,function (res) {
+            if(res.status=='success'){
+                alert(res.msg)
+                location.reload();
+            }else {
+                alert(res.msg)
+            }
+        })
+    })
+
+</script>
+</html>

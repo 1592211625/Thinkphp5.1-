@@ -1,0 +1,117 @@
+{extend name="public/base"/}
+{block name="content"}
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form">
+
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label">
+                            <span class="x-red">*</span>标题</label>
+                        <div class="layui-input-inline">
+                            <input
+                                    type="text"
+                                    id="title"
+                                    name="web_title"
+                                    required
+                                    value="{$data.web_title}"
+                                    lay-verify="required"
+                                    autocomplete="off"
+                                    class="layui-input"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="username" class="layui-form-label">
+                            <span class="x-red">*</span>关键词</label>
+                        <div class="layui-input-inline">
+                            <input
+                                    type="text"
+                                    id="keywords"
+                                    name="web_keywords"
+                                    required
+                                    value="{$data.web_keywords}"
+                                    lay-verify="required"
+                                    autocomplete="off"
+                                    class="layui-input"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item layui-form-text">
+                        <label for="desc" class="layui-form-label">
+                            <span class="x-red">*</span>网站描述</label>
+                        <div class="layui-input-block">
+                            <textarea
+                                    id="description"
+                                    name="web_description"
+                                    class="layui-textarea"
+                            >{$data.web_description}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item layui-form-text">
+                        <label for="desc" class="layui-form-label">
+                            <span class="x-red">*</span>网站底部</label>
+                        <div class="layui-input-block">
+                            <textarea
+                                    id="footer"
+                                    name="web_footer"
+                                    class="layui-textarea"
+                            >{$data.web_footer}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label for="L_repass" class="layui-form-label"></label>
+                        <button class="layui-btn" lay-filter="add" lay-submit="">修改</button>
+                    </div>
+        </form>
+        </div>
+        </div>
+        <script>layui.use(['form', 'layer'],
+            function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                layer = layui.layer;
+
+                //自定义验证规则
+                form.verify({
+                    nikename: function(value) {
+                        if (value.length < 5) {
+                            return '昵称至少得5个字符啊';
+                        }
+                    },
+                    pass: [/(.+){6,12}$/, '密码必须6到12位'],
+                    repass: function(value) {
+                        if ($('#L_pass').val() != $('#L_repass').val()) {
+                            return '两次密码不一致';
+                        }
+                    }
+                });
+
+                //监听提交
+                form.on('submit(add)',
+                function(data) {
+                    $.post('/admin/editpro',data.field,function (res) {
+                        console.log(res);
+                        if(res>0){
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                            window.parent.location.reload();
+                        }else {
+                            layer.alert("修改失败",{icon: 0})
+                        }
+                    });
+
+                    return false;
+                });
+
+            });</script>
+        <script>var _hmt = _hmt || []; (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();</script>
+        {/block}

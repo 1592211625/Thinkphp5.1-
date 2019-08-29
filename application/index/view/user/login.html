@@ -1,0 +1,107 @@
+﻿<html>
+ <head> 
+  <meta charset="UTF-8" /> 
+  <meta http-equiv="Cache-Control" content="no-transform " /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+  <title>登录</title>
+  <meta name="keywords" content="蘑菇街账号登陆,蘑菇街登陆" /> 
+  <meta name="description" content="蘑菇街登陆页面，欢迎回家" />
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/index/css/bottom.css" media="all" /> 
+  <link href="/static/index/css/index.css-944b1a6d.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="/static/index/lib/validform/css/style.css" media="all" />
+
+  <script src="/static/index/lib/validform/js/Validform_v5.3.2_min.js"></script>
+  <script src="/static/index/lib/layer/layer.js"></script>
+
+  <style>
+   a{text-decoration: none;}
+   .get_tel_code{display:inline-block;width:125px;height:42px;line-height:42px;text-align:center;margin-right:10px;color:#fff;background-color:#ff5777}
+   .tab_on{color:#fe617a;height:41px;border-bottom:2px solid #ff4066}
+  </style>
+ </head> 
+ <body class="media_screen_1200"> 
+  
+  <div id="body_wrap"> 
+   <div class="login_wrap"> 
+    <div class="logo_wrap"> 
+     <div class="logo"> 
+      <a title="蘑菇街" href="//www.mogujie.com" class="mainlogo logo_mgj_img"></a> 
+      <!-- 新增登陆页绑定手机提示 --> 
+      <span class="login-logo-tip">依《网络安全法》相关要求，即日起蘑菇街会员登陆需绑定手机。为保障您的账户安全及正常使用，如您尚未绑定，请尽快完成绑定，感谢您的理解和支持!</span> 
+     </div> 
+    </div> 
+    <div class="content clearfix" style="background:url(/static/index/images/login.jpg) no-repeat center center;"> 
+     <div class="lg_banner"> 
+     </div> 
+     <div class="lg_left ui-option-main-box" id="lg_content"> 
+      <!-- 登陆方式tab --> 
+      <div class="toggle-qrcode"></div> 
+
+      <div class="login_mod_tab"> 
+       <div class="fl mod">
+        <a class="lo_mod tab_on" lo-mod="normal" href="/web/login" title="普通登入">登录</a>
+        <a class="lo_mod" lo-mod="normal" href="/web/register" title="普通注册">注册</a>
+       </div> 
+
+      </div> 
+      <div id="signform" class="formbox"> 
+       <p class="error_tip" style="display: block;">请输入用户名/邮箱/手机号</p> 
+       <div class="lg_form"> 
+        <form method="post" id="demoform">
+         <!-- 正常登陆 start --> 
+         <div class="mod_box lo_mod_box" data-isshow="0"> 
+          <div class="ui-sign-item ui-name-item lg_item lg_name"> 
+           <input maxlength="32" class="ui-input pwd_text" data-type="username" name="username" placeholder="手机号" style="border-color:#CFCFCF;" type="text" datatype="m" errormsg="请输入正确手机号" />
+          </div> 
+          <div class="ui-sign-item ui-sign-common-item lg_item lg_pass"> 
+           <input maxlength="32" class="ui-input pwd_text" data-type="loginpassword" name="userpwd" value="" placeholder="密码" style="border-color:#CFCFCF;" type="password" datatype="s5-16" errormsg="密码至少5个字符,最多16个字符！" />
+          </div>
+
+            <div class="lg_item lg_getcode" style="width:315px;display: flex;align-items: center;justify-content: space-between;">
+             <input maxlength="32" name="captcha" class="ui-input pwd_text width_180" id="captcha" data-type="phonecode" placeholder="验证码" style="border-color:#CFCFCF;" type="text" />
+             <img id="img" style="height: 40px;width: 120px;" onclick="this.src=this.src+'#'" src="/admin/captcha" alt="captcha" />
+            </div>
+          </div>
+
+
+         <div class="lg_login clearfix"> 
+          <input value="登录" class="sub" type="submit" id="sub" />
+         </div> 
+ 
+         <div class="lg_reg"> 
+          <a class="findpwd" href="/web/forget/index">忘记密码</a>
+         </div> 
+
+        </form> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div>
+ <script>
+
+  $("#demoform").Validform({
+   tiptype:4,
+   ajaxPost:true,
+   url:'/web/tologin',
+   datatype:{'m':/^1[3456789]\d{9}$/},
+   callback:function(res){
+    // console.log(res);
+    if(res.status=='fail'){
+     layer.msg(data.msg);
+    }else {
+     layer.msg('登录成功！');
+       setTimeout(function () {
+        location.href = '/web/userpic/userpic';
+       },2000)
+    }
+   }
+  });
+
+ </script>
+
+
+ </body>
+</html>

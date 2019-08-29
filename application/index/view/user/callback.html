@@ -1,0 +1,201 @@
+﻿<html>
+ <head>
+
+  <meta charset="UTF-8" />
+
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>退货退款_美丽联合</title>
+  <link href="/static/index/css/index_1.css" rel="stylesheet" type="text/css" />
+
+  <link href="/static/index/css/index_3.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="/static/index/css/bottom.css" media="all" />
+  <link href="/static/index/css/index.css-3bbe4d5f.css" rel="stylesheet" type="text/css" />
+     <script type="text/javascript" src="/static/index/js/jquery.js"></script>
+     <script type="text/javascript" src="/static/index/lib/layer/layer.js"></script>
+ <style>
+  .mu_nav_wrap{margin-left: 55px;}
+ </style>
+ </head>
+ <body class="media_screen_1200">
+
+ <!-- 顶部导航开始-->
+ {include file='public/header' /}
+<!-- 顶部导航结束-->
+
+  <!-- 中间logo以及搜索区域开始 -->
+  <div class="header_mid clearfix">
+   <div class="wrap clearfix">
+    <a rel="nofollow"  class="logo" title="蘑菇街首页" style="background-image: none;">
+	<img src="/static/index/images/logo.gif" alt="蘑菇街，我的买手街" />
+	</a>
+    <div class="normal-search-content">
+     <div class="top_nav_search" id="nav_search_form">
+      <!--搜索框 -->
+      <div class="search_inner_box clearfix">
+       <div class="selectbox" data-v="1">
+        <span class="selected">搜商品</span>
+       </div>
+       <form action="/search/" method="get" id="top_nav_form">
+        <input data-tel="search_book" name="q" class="ts_txt fl" data-def="牛仔裤" value="" autocomplete="off" def-v="牛仔裤"  type="text" />
+        <input value="搜  索" class="ts_btn" type="submit" />
+        <input name="t" value="bao" id="select_type" type="hidden" />
+       </form>
+       <div class="top_search_hint is-not-ie8-hack"></div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ <!-- 中间logo以及搜索区域结束 -->
+
+
+  <div id="body_wrap">
+   <div id="navListWrap">
+    <div class="mu_nav_wrap">
+
+     <!---左侧导航开始-->
+     {include file='public/leftnav' /}
+    </div>
+   </div>
+      <div id="body" class="fm960">
+          <div class="re_wrap">
+              <h1 class="re_tit"> 退款流程 </h1>
+              <div class="re_content" id="reContentView">
+                  <div class="re_main clearfix">
+                      <div class="re_sidebox fl">
+                          <h5 class="re_sidebox_tit">退货/退款商品</h5>
+                          <div class="re_sidebox_imginfo">
+                              <a href="//shop.mogujie.com/detail/1m4kwsc" data-itemid="1m4kwsc" target="_blank"
+                                 class="shopitem-link"><img src="{$data['goods_subimg']}" alt="" width="64" height="64"/></a>
+                              <a href="" data-itemid="1m4kwsc" target="_blank" class="shopitem-link re_sidebox_imginfo_t singleline re_link" title="">
+                                  {$data['goods_name']}
+                              </a>
+                          </div>
+                          <dl class="re_sidebox_dlist re_sidebox_dlist_min">
+                              <dt>
+                                  单价：
+                              </dt>
+                              <dd>
+                                  {$data['goods_price']}元 x 1（数量）
+                              </dd>
+                              <dt>
+                                  小计：
+                              </dt>
+                              <dd class="re_red">
+                                  {$data['goods_money']}元
+                              </dd>
+                          </dl>
+                          <h5 class="re_sidebox_tit">属于订单</h5>
+                          <dl class="re_sidebox_dlist">
+                              <dt>
+                                  订单编号：
+                              </dt>
+                              <dd>
+                                  <a target="_blank" class="shopitem-number re_sidebox_imginfo_t singleline re_link shopitem-order" href="">{$data['child_order_no']}</a>
+                              </dd>
+                              <dt>
+                                  成交时间：
+                              </dt>
+                              <dd>
+                                  {$data['create_time']|date="Y-m-d H:i:s"}
+                              </dd>
+                          </dl>
+                      </div>
+                      <div class="re_cntbox" id="reView">
+                          <!-- notice -->
+                          <p class="re_wnotice ml40 mb20"><span class="re_wnotice_h">温馨提示：</span> <span>由于银行网点结算需要时间，视银行不同退款完成后现金到账时间大致需要2-10个工作日。</span>
+                          </p>
+                          </p>
+                          <!-- notice end -->
+                          <dl class="re_page_step_form" id="refundGoodsFormDom">
+                              <dt>
+                                  <span class="re_red">*</span> 退款金额：
+                              </dt>
+                              <dd>
+                                  <input class="J_refundGoodsPrice re_text re_min_width" id="refundMoney" name="money" value="{$data['goods_money']}" type="text"/>
+                                  <span>元</span>
+                                  <span class="pl5" id="refundMoneyNotice"> ( 最高金额：<span
+                                          class="re_red maxRefundExpenseShow" id="maxCash">0.01</span>元 ) </span>
+                                  <div class="pl5" id="refundMoneyNotice_div">
+                                      <div>
+                                          将退回：现金
+                                          <span class="re_red">0.01元</span>
+                                          <a class="re_gray" style="text-decoration:underline;white-space:nowrap;"
+                                             href="//cs.mogujie.com/help/faqdetail.html?questionId=115a&amp;catalogId=1fw">退款金额详细说明</a>
+                                      </div>
+                                  </div>
+                              </dd>
+                              <dt>
+                                  <span class="re_red">*</span> 退款至：
+                              </dt>
+                              <dd>
+                                  <div class="re_radio_refbox">
+                                      <input class="refboxradio" id="refboxradio_other" name="refund_channel"
+                                             value="false" checked="checked" type="radio"/>
+                                      <label for="refboxradio_other">退款至原支付账户</label>
+                                  </div>
+                              </dd>
+                              <dt>
+                                  退款说明：
+                              </dt>
+                              <dd>
+                                <textarea class="J_refundGoodsDesc re_full_width re_text mt10"
+                                          placeholder="填写退款说明，退款处理更快捷" name="backpay_desc" id="refundIntro" cols="30"
+                                          rows="4"></textarea>
+                                  <p class="follow_tip">最多200字</p>
+                              </dd>
+                              <dt>
+                                  退货运费：
+                              </dt>
+                              <dd>
+                                  <div id="J_shipServiceSubscribeType" class="J_shipServiceSubscribeType">
+                                      <p class="has_money">
+                                          退货补运费服务补贴价格依据买卖双方的退货地址区间，补贴5-18元不等，实际补贴价格请以系统补贴为准。同一订单多件商品发起多次退货，仅补贴一次</p>
+                                  </div>
+                              </dd>
+                              <dd>
+                                  <a id="callback" href="javascript:;" data-id="{$data['id']}" class="J_refundGoodsSubmit re_norbtn">提交申请</a>
+                              </dd>
+                          </dl>
+                      </div>
+                  </div>
+                  <script>
+                      $('#callback').click(function(){
+                          var id = $(this).attr('data-id');
+                          var desc = $('textarea[name=backpay_desc]').val();
+                          $.post('/web/user/backpay',{id:id,backpay_desc:desc},function(res){
+                              if(res.status == 'fail'){
+                                  layer.msg(res.msg);
+                              }else{
+                                  layer.msg(res.msg,{icon:6},function(){
+                                      location.href='/web/user/orderlist';
+                                  });
+                              }
+                          })
+                      })
+                  </script>
+              </div>
+          </div>
+
+      </div>
+  </div>
+
+
+ <script>
+     $('#callback').click(function(){
+         var id = $(this).attr('data-id');
+         var desc = $('textarea[name=backpay_desc]').val();
+         $.post('/web/user/backpay',{id:id,backpay_desc:desc},function(res){
+             if(res.status == 'fail'){
+                 layer.msg(res.msg);
+             }else{
+                 layer.msg(res.msg,{icon:6},function(){
+                     location.href='/web/user/order';
+                 });
+             }
+         })
+     })
+ </script>
+ </body>
+</html>
